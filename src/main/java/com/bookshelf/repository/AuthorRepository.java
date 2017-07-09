@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Set;
 
-public interface AuthorsRepository extends CrudRepository<Author, Long> {
+public interface AuthorRepository extends CrudRepository<Author, Long> {
 
-  boolean findAuthorsByNameExists(Set<String> authors);
+  Author findByName(String name);
 }

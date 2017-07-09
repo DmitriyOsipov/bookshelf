@@ -4,6 +4,8 @@ import com.bookshelf.exceptions.BookNotFoundException;
 import com.bookshelf.model.Book;
 import com.bookshelf.repository.BookRepository;
 
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +15,7 @@ import java.util.Set;
 public class BookService {
 
   @Autowired
-  BookRepository repository;
+  private BookRepository repository;
 
   public Book addNew(Book book) {
     return repository.save(book);
@@ -39,5 +41,10 @@ public class BookService {
 
   public Set<Book> getBooksByAuthor(String authorName) {
     return repository.getBooksByAuthors(authorName);
+  }
+
+  public Set<Book> getAll() {
+    return StreamSupport.stream(repository.findAll().spliterator(), false)
+        .collect(Collectors.toSet());
   }
 }
